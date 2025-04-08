@@ -85,12 +85,7 @@ line-ending = "auto"
 
 [tool.ruff.lint.isort]
 known-first-party = ["trading_strategy_development"]
-section-order = [
-    "future",
-    "standard-library",
-    "third-party",
-    "first-party",
-]
+section-order = ["future", "standard-library", "third-party", "first-party"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
