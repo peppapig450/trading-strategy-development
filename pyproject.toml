@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A modular trading strategy predictor."
 authors = [{ name = "peppapig450", email = "peppapig450@pm.me" }]
 readme = "README.md"
-requires-python = "^3.12"
+requires-python = "~=3.12"
 license = { text = "MIT" }
 
 dependencies = [
@@ -84,7 +84,13 @@ line-ending = "auto"
 
 [tool.ruff.lint.isort]
 known-first-party = ["trading_strategy_development"]
-section-order = ["future", "standard-library", "third-party", "first-party", "local"]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local",
+]
 
 [tool.ruff.pydocstyle]
 convention = "google"
@@ -94,12 +100,12 @@ convention = "google"
 "tests/**/*.py" = ["ANN", "D"] # Ignore type annotations and docstrings in tests
 
 [tool.mypy]
-python_version = "3.12"           # Matches your project’s Python version
-strict = true                     # Enable most strict checks by default
-warn_unused_configs = true        # Catch unused Mypy settings
-warn_return_any = true            # Ensure functions with Any return are intentional
-show_error_codes = true           # Display error codes for easier debugging
-pretty = true                     # Nicer error output
+python_version = "3.12"    # Matches your project’s Python version
+strict = true              # Enable most strict checks by default
+warn_unused_configs = true # Catch unused Mypy settings
+warn_return_any = true     # Ensure functions with Any return are intentional
+show_error_codes = true    # Display error codes for easier debugging
+pretty = true              # Nicer error output
 mypy_path = "src"
 
 # Relax strictness for third-party libraries with incomplete types
@@ -111,11 +117,11 @@ module = [
     "seaborn.*",
     "xgboost.*",
 ]
-follow_imports = "silent"         # Don’t error on untyped imports
-ignore_missing_imports = true     # Skip type checking for these
+follow_imports = "silent" # Don’t error on untyped imports
+ignore_missing_imports = true # Skip type checking for these
 
 # Per-module settings (if needed)
 [[tool.mypy.overrides]]
 module = "tests.*"
-disallow_untyped_defs = false     # Allow untyped test functions
-disallow_incomplete_defs = false  # Relax strictness in tests
+disallow_untyped_defs = false    # Allow untyped test functions
+disallow_incomplete_defs = false # Relax strictness in tests
