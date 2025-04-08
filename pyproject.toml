@@ -1,0 +1,121 @@
+[project]
+name = "trading-strategy-development"
+version = "0.1.0"
+description = "A modular trading strategy predictor."
+authors = [{ name = "peppapig450", email = "peppapig450@pm.me" }]
+readme = "README.md"
+requires-python = "^3.12"
+license = { text = "MIT" }
+
+dependencies = [
+    "pandas[html,performance] (>=2.2.3,<3.0.0)",
+    "yfinance (>=0.2.55,<0.3.0)",
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "seaborn (>=0.13.2,<0.14.0)",
+    "click (>=8.1.8,<9.0.0)",
+    "statsmodels (>=0.14.4,<0.15.0)",
+]
+
+[project.urls]
+repository = "https://github.com/peppapig450/trading-strategy-development"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.4"
+mypy = "^1.15.0"
+pandas-stubs = "^2.2.3.250308"
+pytest = "^8.3.5"
+pytest-cov = "^6.1.1"
+
+[tool.ruff]
+# Basic settings
+line-length = 88
+target-version = "py312"
+output-format = "full"   # Detailed output for diagnostics
+
+# Rule selection
+select = [
+    "E",
+    "W",   # pycodestyle errors and warnings (style)
+    "F",   # Pyflakes (logic errors, unused imports)
+    "I",   # isort (import sorting)
+    "B",   # Bugbear (common pitfalls)
+    "C4",  # Comprehensions (encourage readable forms)
+    "UP",  # Pyupgrade (modern Python syntax)
+    "N",   # PEP 8 naming conventions
+    "D",   # Pydocstyle (docstring enforcement)
+    "ANN", # Type annotation checks (pairs with Mypy)
+    "PT",  # Pytest style improvements
+    "SIM", # Simplification rules (e.g., redundant code)
+    "RUF", # Ruff-specific rules (e.g., ambiguous variable names)
+    "PL",  # Pylint-inspired rules (e.g., complexity checks)
+    "NPY", # NumPy specific rules
+    "PD",  # Pandas specific rules
+
+]
+ignore = [
+    "D107",    # Allow missing docstrings for `__init__` (if simple)
+    "PLR0913", # Allow >5 function arguments (common in data/ML code)
+    "PLR2004", # Allow magic value comparisons (e.g., thresholds in strategies)
+]
+exclude = [".git", ".ruff_cache", "__pycache__", "dist"]
+extend-exclude = ["tests"]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+src = ["src"]
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = ["trading_strategy_development"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]       # Ignore unused imports in __init__.py files
+"tests/**/*.py" = ["ANN", "D"] # Ignore type annotations and docstrings in tests
+
+[tool.mypy]
+python_version = "3.12"           # Matches your project’s Python version
+strict = true                     # Enable most strict checks by default
+warn_unused_configs = true        # Catch unused Mypy settings
+warn_return_any = true            # Ensure functions with Any return are intentional
+show_error_codes = true           # Display error codes for easier debugging
+pretty = true                     # Nicer error output
+mypy_path = "src"
+
+# Relax strictness for third-party libraries with incomplete types
+[[tool.mypy.overrides]]
+module = [
+    "yfinance.*",
+    "backtrader.*",
+    "matplotlib.*",
+    "seaborn.*",
+    "xgboost.*",
+]
+follow_imports = "silent"         # Don’t error on untyped imports
+ignore_missing_imports = true     # Skip type checking for these
+
+# Per-module settings (if needed)
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false     # Allow untyped test functions
+disallow_incomplete_defs = false  # Relax strictness in tests
