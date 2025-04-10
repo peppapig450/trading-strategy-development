@@ -36,7 +36,7 @@ pytest-cov = "^6.1.1"
 
 [tool.ruff]
 # Basic settings
-line-length = 88
+line-length = 120
 target-version = "py312"
 output-format = "full"     # Detailed output for diagnostics
 src = ["src"]
