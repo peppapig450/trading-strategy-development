@@ -22,9 +22,7 @@ def get_project_root() -> Path:
     for parent in current_file.parents:
         if parent.name == "src":
             return parent.parent
-    raise RuntimeError(
-        "Could not find project root (expected to find 'src' directory)."
-    )
+    raise RuntimeError("Could not find project root (expected to find 'src' directory).")
 
 
 DEFAULT_LOG_DIR: Final[Path] = get_project_root() / "logs"
@@ -66,7 +64,7 @@ def setup_logging(
 
     # Normalize log_dir to be relative to the project root
     if log_dir.is_absolute():
-        # If the path is absolute, use only the last part of the path (e.g., /var/logs -> logs)  # noqa: E501
+        # If the path is absolute, use only the last part of the path (e.g., /var/logs -> logs)
         log_dir = project_root / log_dir.name
     else:
         # If the path is relative, resolve it relative to the project root
@@ -84,7 +82,7 @@ def setup_logging(
         log_dir = Path(tempfile.gettempdir()) / "trading_logs"
         log_dir.mkdir(parents=True, exist_ok=True)
         print(
-            f"Warning: Could not create a log directory at {log_dir}. Using {log_dir} instead. Error: {e}",  # noqa: E501
+            f"Warning: Could not create a log directory at {log_dir}. Using {log_dir} instead. Error: {e}",
             file=sys.stderr,
         )
 
